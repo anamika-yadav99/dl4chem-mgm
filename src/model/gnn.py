@@ -135,7 +135,7 @@ class GraphNNParent(nn.Module):
             edge_embeddings.append(self.edge_embedding_layers[name](property))
         edge_embeddings = torch.stack(edge_embeddings).sum(0)
         node_embeddings = self.add_property_embeddings(node_embeddings, graph_properties, binary_graph_properties,
-                                                       batch_graph.batch_num_nodes())
+                                                       batch_graph.batch_num_nodes)
         batch_graph.ndata['nodes'] = node_embeddings
         batch_graph.edata['edge_spans'] = edge_embeddings.reshape(-1, self.dim_h, self.dim_k)
 
