@@ -306,7 +306,7 @@ class GraphGenerator(DistributionMatchingGenerator):
                 print( batch_init_graph.edges()[0][edge_start:edge_start+num_edges].numpy())
                 
                 print(node_start)
-                print(type(node_start)
+                print(type(node_start))
                 single_datapoint_fc_data = np.zeros((num_nodes, num_nodes))
                 single_datapoint_fc_data[
                     batch_init_graph.edges()[0][edge_start:edge_start+num_edges].numpy() - node_start,
