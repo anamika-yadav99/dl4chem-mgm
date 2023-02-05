@@ -305,8 +305,8 @@ class GraphGenerator(DistributionMatchingGenerator):
             for name, property in batch_init_graph.edata.items():
                 single_datapoint_fc_data = np.zeros((num_nodes, num_nodes))
                 single_datapoint_fc_data[
-                    batch_init_graph.edges()[0][edge_start:edge_start+num_edges].numpy() - node_start,
-                    batch_init_graph.edges()[1][edge_start:edge_start+num_edges].numpy() - node_start] = \
+                    batch_init_graph.edges()[0][(edge_start):(edge_start+num_edges)].numpy() - node_start,
+                    batch_init_graph.edges()[1][(edge_start):(edge_start+num_edges)].numpy() - node_start] = \
                     property[edge_start:edge_start+num_edges].numpy()
                 # force symmetry, which is broken earlier by sampling edge predictions
                 single_datapoint_fc_data = np.triu(single_datapoint_fc_data) + np.tril(single_datapoint_fc_data.T, -1)
