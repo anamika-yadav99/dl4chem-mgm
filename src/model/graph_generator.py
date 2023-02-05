@@ -303,17 +303,11 @@ class GraphGenerator(DistributionMatchingGenerator):
             all_final_node_masks.append(np.ones(num_nodes)) # redundant but needs to remain until node masks removed
                                                             # from generation
             for name, property in batch_init_graph.edata.items():
-                print(type( batch_init_graph.edges()))
-                print( batch_init_graph.edges())
-                print(batch_init_graph.edges()[0])
-                print(type(batch_init_graph.edges()[0]))
-                print(batch_init_graph.edges()[0][edge_start:edge_start+num_edges])
-                print(type(batch_init_graph.edges()[0][edge_start:edge_start+num_edges]))
                 single_datapoint_fc_data = np.zeros((num_nodes, num_nodes))
                 single_datapoint_fc_data[
-                    batch_init_graph.edges()[0][edge_start:edge_start+num_edges].numpy() - node_start,
-                    batch_init_graph.edges()[1][(edge_start):(edge_start+num_edges)].numpy() - node_start] = \
-                    property[edge_start:edge_start+num_edges].numpy()
+                    batch_init_graph.edges()[0][edge_start:edge_start+num_edges].cpu().detach().numpy() - node_start,
+                    batch_init_graph.edges()[1][(edge_start):(edge_start+num_edges)].cpu().detach().numpy() - node_start] = \
+                    property[edge_start:edge_start+num_edges].cpu().detach().numpy()
                 # force symmetry, which is broken earlier by sampling edge predictions
                 single_datapoint_fc_data = np.triu(single_datapoint_fc_data) + np.tril(single_datapoint_fc_data.T, -1)
                 all_final_edge_properties[name].append(single_datapoint_fc_data)
